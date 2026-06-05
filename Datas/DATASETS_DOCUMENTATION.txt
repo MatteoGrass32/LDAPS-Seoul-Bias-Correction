@@ -1,0 +1,124 @@
+================================================================================
+SEOUL LDAPS THERMAL BIAS CORRECTION PROJECT - DATASETS DOCUMENTATION
+================================================================================
+Location: Seoul, South Korea
+Temporal Scope: Summer seasons only (June 30th to August 30th, 2013 - 2017)
+Objective: Post-processing and bias correction of LDAPS temperature forecasts
+
+--------------------------------------------------------------------------------
+1. DATASET EVOLUTION & ARCHITECTURE
+--------------------------------------------------------------------------------
+The data pipeline evolved through several strict iterations to resolve logic 
+discrepancies, aggregate sub-daily noise, inject temporal memory, and split 
+the modeling strictly by timeline to avoid data leakage.
+
+* OriginalData.csv
+  The raw, unprocessed source dataset exactly as downloaded. Contains missing 
+  values (NaNs) and highly granular, sub-daily variables.
+
+* DataSetWithErrors.csv
+  The first iteration generated during the preliminary Exploratory Data Analysis 
+  (EDA). NaNs were dropped, and the absolute errors (Observed - LDAPS Forecast) 
+  were established. This file served strictly as the master view for the initial 
+  statistical overview before robust feature engineering.
+
+* TrainingSet.csv (Years: 2013, 2014, 2015, 2016)
+  The core fitting environment. Covers 4 summers. It incorporates the newly engineered 
+  Trend predictors, aggregated metrics, and the Autoregressive Lags (Lag1 to Lag6) 
+  to model the temporal bias structure.
+
+* TestSet.csv (Year: 2017)
+  The out-of-sample validation sandbox. It contains the exact same covariate 
+  structure as the Training Set, but preserves the original predictions 
+  (LDAPS_Tmax_lapse, LDAPS_Tmin_lapse) and actuals (Next_Tmax, Next_Tmin) 
+  alongside initial uncorrected errors. This allowed us to measure the new, 
+  corrected errors and calculate percentage improvements in the backtest phase.
+
+
+--------------------------------------------------------------------------------
+2. DATA CLEANING & CONFLICT RESOLUTION
+--------------------------------------------------------------------------------
+To ensure structural integrity and physical meaning, the following interventions 
+were performed:
+
+A) Temporal Simplification (Aggregation)
+   Rainfall and cloud cover predictions originally fragmented into 6-hour chunks 
+   were averaged on a daily basis, resulting in two robust synthesis features 
+   (Cloud_Cover_Avg and Precipitation_Avg).
+
+B) The 21h vs 24h Conflict (TPresent Alignment)
+   A structural inconsistency was detected in the raw data: "TPresent_Max" (the 
+   maximum temperature recorded 'today') sometimes differed slightly from 
+   "Next_Tmax" belonging to the previous day. This was caused by asynchronous 
+   sampling (a 21-hour window for TPresent vs a full 24-hour cycle for Next_Tmax). 
+   To fix this and guarantee collinear consistency, TPresent was overwritten to 
+   perfectly match the previous day's Next_Tmax.
+
+C) Trend Engineering (Momentum)
+   To provide the models with a sense of thermal inertia without triggering 
+   strong collinearity, explicit features referring strictly to yesterday's exact 
+   temperature were intentionally omitted. Instead, the rate-of-change metrics 
+   TrendTMAX and TrendTMIN were engineered. These delta values capture the dynamic 
+   thermal momentum of the urban basin.
+
+D) Information Leakage Prevention
+   Target raw temperatures (Next_Tmax/min) and LDAPS forecasts were stripped from 
+   the Training Set to force the model to predict the *residual error* directly, 
+   ensuring no information from "tomorrow" bled into the algorithm.
+
+E) Introduction of Lag Dynamics
+   12 new error covariates representing the errors made by the model on previous 
+   days (Lag1 through Lag6 for both Tmin and Tmax) were introduced. This addition 
+   was driven by an explicit theoretical intuition: the error structure in the Changma 
+   monsoon season exhibits a "weekly dependency" where micro-climatic thermal inertia 
+   persists over consecutive days.
+
+
+--------------------------------------------------------------------------------
+3. FEATURE DIRECTORY & METADATA LEGENDA
+--------------------------------------------------------------------------------
+Identifiers and Time:
+* Date            : Forecast target date [YYYY-MM-DD] (Summer coverage only).
+* Station         : ID number of the meteorological station (1 to 25).
+
+Geographical and Topographical Inputs:
+* Latitude        : Station latitude (decimal degrees).
+* Longitude       : Station longitude (decimal degrees).
+* Elevation       : Altitude above sea level in meters (based on DEM).
+* Slope           : Terrain inclination around the station (degrees).
+
+Meteorological Forecasts (LDAPS model, predicting 'tomorrow'):
+* RelativeHumidity_Min : Forecasted minimum relative humidity (%).
+* RelativeHumidity_Max : Forecasted maximum relative humidity (%).
+* Wind_Speed_Avg       : Forecasted average wind speed (m/s).
+* Latent_Heat_Flux     : Forecasted average latent heat flux (W/m²), indicating evaporative energy.
+* Cloud_Cover_Avg      : Daily average cloud cover fraction (0 to 1). Aggregated from raw 6h steps.
+* Precipitation_Avg    : Daily average precipitation chance/amount (%). Aggregated from raw 6h steps.
+
+Current Context (Measured 'today'):
+* Solar_Radiation      : Incoming solar radiation measured today (Wh/m²). Critical for thermal inertia.
+* TToday_Max           : Replaces raw TPresent_Max. Aligned to capture today's exact peak temp.
+* TToday_Min           : Replaces raw TPresent_Min. Aligned to capture today's exact lowest temp.
+* TrendTMAX            : Delta value: [TToday_Max(Today) - TToday_Max(Yesterday)]. 
+                         Captures dynamic thermal momentum without collinearity.
+* TrendTMIN            : Delta value: [TToday_Min(Today) - TToday_Min(Yesterday)]. 
+
+Autoregressive Memory (Lag Structure):
+* ErroreTmin_Lag1 ... Lag6 : The exact forecasting error recorded 1 to 6 days prior for Tmin.
+* ErroreTmax_Lag1 ... Lag6 : The exact forecasting error recorded 1 to 6 days prior for Tmax.
+
+Target Variables (To be predicted for the Training Set):
+* Error_Tmax           : LDAPS Forecasting Error [Observed Tomorrow - Predicted LDAPS].
+* Error_Tmin           : LDAPS Forecasting Error [Observed Tomorrow - Predicted LDAPS].
+
+Validation Variables (Present only in TestSet.csv):
+* Error_Tmax_Iniziale  : Original baseline error for Tmax before our corrections.
+* Error_Tmin_Iniziale  : Original baseline error for Tmin before our corrections.
+* LDAPS_Tmax_lapse     : Initial uncorrected LDAPS Tmax forecast.
+* LDAPS_Tmin_lapse     : Initial uncorrected LDAPS Tmin forecast.
+* Next_Tmax            : True observed Maximum Temperature for 'tomorrow'.
+* Next_Tmin            : True observed Minimum Temperature for 'tomorrow'.
+
+================================================================================
+END OF DOCUMENTATION
+================================================================================
