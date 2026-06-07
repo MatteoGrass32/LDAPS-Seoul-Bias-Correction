@@ -55,7 +55,7 @@ For nighttime cooling, we applied the same rigorous parsimonious selection (AIC)
 
 ### 🟣 Tmin Correction: Non-Linear Topographical Model (Advanced)
 While the linear model successfully zeroed out the mean bias, it possessed a physical limitation: it treated the Korean mountains as "flat inclined planes" (2D orography), completely ignoring the true "U" and "V" shaped concavity of Seoul's valleys where cold air pools and creates strong thermal inversions at night. 
-To overcome this limitation, we introduced **interacting third-degree polynomials** — utilizing the full polynomial expansion `(Elevation³ + Elevation² + Elevation) * (Slope³ + Slope² + Slope)`. This provided the algorithm with the complex geometric degrees of freedom needed to map the micro-valleys in 3D and accurately track these isolated "cold air pockets".
+To overcome this limitation, we introduced interacting third-degree polynomials between Elevation and Slope. This provided the algorithm with the complex geometric degrees of freedom needed to map the micro-valleys in 3D and accurately track these isolated "cold air pockets".
 
 * **Battle Royale Backtest Metrics (2017 Test Set):**
   * **Explained Variance:** Despite severe algebraic penalties, the in-sample Adjusted R-squared jumped from 24.9% to **31.03%**, mathematically proving the real-world impact of the 3D topography and decisively outperforming the linear model.

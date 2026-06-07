@@ -25,7 +25,9 @@ Guided by *Cho et al. (2020)*, we incorporated `Elevation` and `Slope` to succes
 | Target | Model | Adj R-Squared | RMSE Improvement | MBE Correction (Bias) |
 
 | **Tmax** | Baseline Linear (Model 5) | 24.62% | 1.8696 → 1.7351 °C (-7.19%) | -0.3513 → +0.2531 °C (27.93% wiped out) |
+
 | **Tmin** | Baseline Linear (Model 5) | 24.95% | 1.2310 → 0.9413 °C (-23.54%) | -0.6302 → -0.0366 °C (94.20% wiped out) |
+
 | **Tmin** | Advanced Non-Linear (Model 6) | **31.03%** | 1.2310 → **0.8966 °C** (-27.17%) | -0.6302 → **-0.0364 °C** (94.23% wiped out) |
 
 
