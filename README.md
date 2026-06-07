@@ -1,6 +1,9 @@
 # 🌤️ LDAPS Seoul Thermal Bias Correction
 **Statistical and machine learning pipeline to correct the thermal bias of the LDAPS weather forecasting model in Seoul. Developed for the Mathematical Engineering program at Politecnico di Milano.**
 
+## Authors:
+Matteo Grassini, Alice Rossato, Andrea Santimaria
+
 ## 📖 Project Overview
 Numerical Weather Prediction (NWP) models are the backbone of modern meteorology, but they struggle with micro-scale topographical features. This project focuses on the **Local Data Assimilation and Prediction System (LDAPS)** used in South Korea. 
 
@@ -24,6 +27,10 @@ We refused to treat this as a pure "black-box" machine learning problem. Every f
 2. **Thermal Inertia:** Integration of autoregressive lags and temperature derivatives (`TrendTMAX`, `TrendTMIN`) to simulate urban heat retention.
 3. **Geometrical Non-Linearity:** Upgrading from a 2D "tilted plane" linear model to 3D interacting cubic polynomials (`Elevation³ * Slope³`) to mathematically simulate cold air pooling in physical valleys.
 4. **Out-of-Sample Validation:** The models are trained on 2013-2016 data and strictly backtested on unseen 2017 data to evaluate real-world RMSE and Mean Bias Error (MBE) reduction.
+
+## Reference:
+There's the PDF in the Section Reference of this Github, for a bigger comprension we post the original link too :
+https://agupubs.onlinelibrary.wiley.com/doi/10.1029/2019EA000740
 
 ## 📊 Final Results
 *(This section is currently being updated as the final models are synthesized. Stay tuned for the final Battle Royale metrics between LDAPS, Linear, and Non-Linear approaches).*
