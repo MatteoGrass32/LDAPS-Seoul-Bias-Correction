@@ -15,5 +15,3 @@ Our approach is inspired by and builds upon the foundational paper: *"Comparativ
 **Tmax vs. Tmin Asymmetry:**
 * **Tmax (Daytime):** Driven heavily by incoming solar radiation, cloud cover, and the urban heat island effect (concrete retaining heat). Highly volatile.
 * **Tmin (Nighttime):** Governed by latent heat flux (evaporation from saturated summer soils) and topographic thermal inversions (dense cold air sliding down mountain slopes into valleys).
-
-**Graph Placeholders:**

@@ -13,10 +13,4 @@
 * **Variance Reduction (RMSE):** Out-of-sample RMSE improved from **1.8696 °C to 1.7351 °C** (a solid **7.19% improvement** over the baseline).
 * **Systematic Error Eradication (BIAS):** The initial Mean Bias Error (MBE) of **-0.3513 °C** (a chronic underestimation of daytime peak temperatures) was corrected to **+0.2531 °C**. The 5-variable linear model wiped out **27.93%** of the global model's structural bias defect.
 
-**Graph Placeholders:**
-* [INSERT PLOT: ELBOW CRITERION — FORWARD SELECTION (ADJUSTED R²)]
-* [INSERT PLOT: OPTIMAL FORWARD MODEL DIAGNOSTICS (4 SUBPLOTS: RESIDUALS, Q-Q, SCALE-LOCATION, COOK'S DISTANCE)]
-* [INSERT PLOT: SCATTER PLOT - ABSOLUTE ERROR LDAPS VS FORWARD MODEL]
-* [INSERT PLOT: BAR CHART - BACKTEST RMSE IMPROVEMENT ACROSS ALL FORWARD MODELS]
-* [INSERT PLOT: BAR CHART - PERFORMANCE COMPARISON TEST SET RMSE]
-* [INSERT PLOT: BAR CHART - BIAS COMPARISON TEST SET]
+

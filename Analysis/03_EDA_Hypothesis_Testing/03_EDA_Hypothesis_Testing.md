@@ -18,10 +18,3 @@ Meteorological variables are physically coupled. The LDAPS model operates on a c
 * **DTR Flattening:** The Diurnal Temperature Range analysis reveals a mean error of **+1.2224 °C** (with peaks up to +9.3 °C). This proves that the global model is structurally "blind" to the true thermal volatility of the Seoul basin, predicting days that are too cold and nights that are too warm.
 * **The Altitude Penalty:** Loess smoothing and categorical boxplots demonstrate a clear correlation between the Absolute Error and the Digital Elevation Model (DEM). The model's physics fail to scale accurately with the rugged Korean topography.
 
-**Graph Placeholders:**
-[INSERT PLOT: HISTOGRAM AND BOXPLOT OF TMAX ERROR DISTRIBUTION]
-[INSERT PLOT: HISTOGRAM AND BOXPLOT OF TMIN ERROR DISTRIBUTION]
-[INSERT PLOT: COMPARISON OF FORECASTING ERRORS (TMAX VS TMIN VS DTR)]
-[INSERT PLOT: SCATTERPLOT MATRIX AND CORRELATION MATRIX (GGALLY)]
-[INSERT PLOT: IMPACT OF ALTITUDE (DEM) ON ABSOLUTE TMAX AND TMIN ERRORS WITH LOESS SMOOTHING]
-[INSERT PLOT: TMAX AND TMIN ERROR BY ALTITUDE RANGE BOXPLOTS]

@@ -1,4 +1,4 @@
-# Section 7: Advanced Non-Linear Topographic Modeling (Tmin)
+# Section 6: Advanced Non-Linear Topographic Modeling (Tmin)
 
 **Objective:**
 To build upon the linear baseline by introducing interacting cubic polynomials (`Elevation³ * Slope³`), enabling the model to transition from a flat 2D projection to a fully 3D mathematical mapping of Seoul's micro-valleys.
@@ -14,10 +14,3 @@ We validate this complexity through the **Adjusted R-squared Elbow Method** and 
 * **Systematic Error Eradication (BIAS):** The mean bias remained perfectly neutralized, improving by **94.23%** (from -0.6302 °C to just -0.0364 °C).
 * **Linear vs Non-Linear Synthesis:** The Linear model is a "Marksman" (centers the average aim), while the Cubic model is a "Sniper" (drastically reduces the dispersion of errors around the zero mark, essential for localized valley forecasting).
 
-**Graph Placeholders:**
-[INSERT PLOT: Correlation Matrix `corrplot`]
-[INSERT PLOT: Elbow Method for Adjusted R-Squared (Non-Linear Models)]
-[INSERT PLOT: Non-Linear Model Diagnostics (4 subplots: Residuals, Q-Q, Scale-Location, Cook's Distance)]
-[INSERT PLOT: Scatter Plot - Absolute Error LDAPS vs Model 6 on Test Set]
-[INSERT PLOT: Bar Chart - Non-Linear Backtest RMSE Improvement]
-[INSERT PLOT: Bar Chart - Non-Linear Backtest BIAS Reduction]

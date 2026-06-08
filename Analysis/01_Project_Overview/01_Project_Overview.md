@@ -15,4 +15,3 @@ Numerical Weather Prediction (NWP) models like LDAPS are incredibly powerful at 
 * Integration of Autoregressive (AR) memory to capture atmospheric thermal inertia.
 * Strict evaluation based on RMSE (variance reduction) and Mean Bias Error (systematic flaw correction).
 
-**Graph Placeholders:**
