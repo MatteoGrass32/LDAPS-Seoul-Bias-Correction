@@ -1,5 +1,5 @@
 # 🌤️ LDAPS Seoul Thermal Bias Correction
-**Statistical and machine learning pipeline to correct the thermal bias of the LDAPS weather forecasting model in Seoul. Developed for the Mathematical Engineering program at Politecnico di Milano.**
+**Statistical and machine learning pipeline to correct the thermal bias of the Local Data Assimilation and Prediction System (LADPS) weather forecasting model in Seoul. Developed for the Mathematical Engineering program at Politecnico di Milano.**
 
 ## Authors:
 Matteo Grassini, Alice Rossato, Andrea Santimaria
