@@ -15,10 +15,10 @@ The project is structured chronologically, reflecting our analytical pipeline:
 * **`01_Project_Overview/`** - High-level goals, methodology, and dual-track architecture.
 * **`02_Dataset_and_Context/`** - Data dictionary, Korean morphology, and literature review (Cho et al., 2020).
 * **`03_EDA_Hypothesis_Testing/`** - Preliminary inferential statistics proving the existence of the systematic bias.
-* **`04_Temporal_Analysis_Lags/`** - Autocorrelation studies and the implementation of Autoregressive (AR) memory.
-* **`05_Tmax_Model/`** - Modeling track for daytime peak heat predictions.
-* **`06_Tmin_Linear_Model/`** - Baseline multiple linear regression for nighttime cooling.
-* **`07_Tmin_NonLinear_Model/`** - Advanced 3D topographic modeling using full third-degree interacting polynomials.
+* **`04_Tmax_Model/`** - Modeling track for daytime peak heat predictions.
+* **`05_Tmin_Linear_Model/`** - Baseline multiple linear regression for nighttime cooling.
+* **`06_Tmin_NonLinear_Model/`** - Advanced 3D topographic modeling using full third-degree interacting polynomials.
+* **`07_Temporal_Analysis_Lags/`** - Autocorrelation studies and the implementation of Autoregressive (AR) memory.
 * **`08_Conclusions_and_Results/`** - Final performance synthesis and physical interpretations.
 
 ## 🔬 Methodology
@@ -44,7 +44,7 @@ Daytime heating suffers from structural inertia and radiative dynamics that the 
 * **Physical Meaning:** The model captures the *Stationary Memory* of the error (using Lags at 1, 3, and 5 days to "remember" prolonged heatwaves) alongside *Radiative and Atmospheric Dynamics* (specifically cloud cover and minimum relative humidity, which are heavily correlated with afternoon heating capacity).
 * **Backtest Metrics (2017 Test Set):**
   * **RMSE Reduction:** Variance improved by **7.19%**, with out-of-sample RMSE dropping from 1.8696 °C to **1.7351 °C**.
-  * **BIAS Correction:** The chronic underestimation of daytime peaks by LDAPS (initial MBE of -0.3513 °C) was balanced out to +0.2531 °C, eradicating **27.93%** of the global model's structural defect.
+  * **BIAS Correction:** The chronic underestimation of daytime peaks by LDAPS was balanced out to +0.2531 °C, eradicating **27.93%** of the global model's structural defect.
 
 ### 🔵 Tmin Correction: Linear Model (Baseline)
 For nighttime cooling, we applied the same rigorous parsimonious selection (AIC). Model 5 emerged as optimal once again, though based on completely different physical domains than the daytime model: nocturnal *Stationary Memory*, *Energy Exchange* (Latent heat flux via evaporative dissipation during the monsoon), and *Linear Orography* (Elevation and Slope driving katabatic winds).
@@ -57,7 +57,7 @@ For nighttime cooling, we applied the same rigorous parsimonious selection (AIC)
 While the linear model successfully zeroed out the mean bias, it possessed a physical limitation: it treated the Korean mountains as "flat inclined planes" (2D orography), completely ignoring the true "U" and "V" shaped concavity of Seoul's valleys where cold air pools and creates strong thermal inversions at night. 
 To overcome this limitation, we introduced interacting third-degree polynomials between Elevation and Slope. This provided the algorithm with the complex geometric degrees of freedom needed to map the micro-valleys in 3D and accurately track these isolated "cold air pockets".
 
-* **Battle Royale Backtest Metrics (2017 Test Set):**
+* **Backtest Metrics (2017 Test Set):**
   * **Explained Variance:** Despite severe algebraic penalties, the in-sample Adjusted R-squared jumped from 24.9% to **31.03%**, mathematically proving the real-world impact of the 3D topography and decisively outperforming the linear model.
   * **RMSE Improvement:** The root mean square error was driven down to **0.8966 °C**, achieving an overall **27.17%** improvement compared to the baseline LDAPS error.
   * **Neutral BIAS:** The systematic error remained completely annihilated at **94.23%** (-0.0364 °C).
