@@ -4,7 +4,7 @@
 ## Authors:
 Matteo Grassini, Alice Rossato, Andrea Santimaria
 
-## 📖 Project Overview
+## 📖 Project Overview 
 Numerical Weather Prediction (NWP) models are the backbone of modern meteorology, but they struggle to capture micro-scale topographical features. This project focuses on the **Local Data Assimilation and Prediction System (LDAPS)** used in South Korea. 
 
 During the turbulent summer monsoon season (*Changma*), the complex mountainous basin of Seoul induces systematic forecasting errors. Our objective is to post-process LDAPS outputs, correcting the structural bias for both Maximum (Tmax) and Minimum (Tmin) temperatures by integrating atmospheric physics with advanced statistical modeling.
